@@ -8,6 +8,8 @@ require('./class/Precio.php');
 require('./class/Autos.php');
 require('./helpers/helper.php');
 
+/* Me falto punto 5 y punto 9 */
+
 
 $metodo = $_SERVER['REQUEST_METHOD'] ?? "";
 $path = $_SERVER['PATH_INFO'] ?? "";
@@ -33,16 +35,19 @@ switch ($metodo) {
             if( explode( "=", $_SERVER['QUERY_STRING'])[0] == "patente" ){
                 getAutosByPatente();
                 return;
+            }else{
+                getAllAutos();
             }
-            getAllAutos();
         }else if($path == "/importe/hora"){
             totalImportes("hora");
         }else if($path == "/importe/estadia"){
             totalImportes("estadia");
         }else if($path == "/importe/mensual"){
             totalImportes("mensual");
+        }else{
+            response(false,"BAD REQUEST","msg");
         }
     default:
-        # code...
+        response(false,"BAD REQUEST","msg");
         break;
 }
